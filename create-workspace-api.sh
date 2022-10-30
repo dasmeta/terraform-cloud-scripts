@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ -z "${1}" ]; then
   echo "Usage: $0 <path_to_content_directory> <organization>/<workspace>"
   exit 0
@@ -19,9 +18,6 @@ WORKSPACE_DATA='{
                     "type": "workspaces"
                   }
                 }'
-
-
-#echo -e $WORKSPACE_DATA_VALID | jq ".data.attributes.name = workspace"
 
 data=$(echo $WORKSPACE_DATA | jq --arg workspace_name "${WORKSPACE_NAME}" '.data.attributes.name = $workspace_name')
 

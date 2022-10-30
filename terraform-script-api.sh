@@ -14,7 +14,6 @@ WORKSPACE_NAME="$(cut -d'/' -f2 <<<"$2")"
 
 ./create-workspace-api.sh ${ORG_NAME}/${WORKSPACE_NAME} &> /dev/null
 
-
 # 2. Create the File for Upload
 
 UPLOAD_FILE_NAME="./content-$(date +%s).tar.gz"

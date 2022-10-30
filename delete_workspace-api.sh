@@ -13,5 +13,3 @@ curl \
   --header "Content-Type: application/vnd.api+json" \
   --request DELETE \
   https://app.terraform.io/api/v2/organizations/$ORG_NAME/workspaces/$WORKSPACE_NAME
-
-
