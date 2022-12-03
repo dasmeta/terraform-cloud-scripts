@@ -9,10 +9,12 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 function askUser() {
-  read -p  $'\e[33m[ ... ]\e[0m Workspace not found, create new one? [Yy]: ' choice
+  read -p  $'\e[33m[ ... ]\e[0m Workspace not found, create new one?: ' choice
   if ! [[ $choice =~ ^[Yy]$ ]]
   then
       exit 1;
+      else
+      create-workspace-api ${ORG_NAME}/${WORKSPACE_NAME}
   fi
 }
 
@@ -29,17 +31,19 @@ check-workspace-api $ORG_NAME/$WORKSPACE_NAME
 echo $? > getExit
 
 if [ $? -eq 1 ]; then
-    echo 1;
+    exit 1;
 elif [ $(cat getExit) -eq 2 ]; then
     askUser
 fi
 rm getExit
 
-create-workspace-api ${ORG_NAME}/${WORKSPACE_NAME}
-
 # 2. Create the File for Upload
-UPLOAD_FILE_NAME="./content-$(date +%s).tar.gz"
-tar -zcf "$UPLOAD_FILE_NAME" -C "$CONTENT_DIRECTORY" . &> /dev/null
+mkdir -p artifact
+UPLOAD_FILE_NAME="./artifact/content-$(date +%s).tar.gz"
+tar -zcf "$UPLOAD_FILE_NAME" ./ &> /dev/null
+
+# 3. Look Up the Workspace ID
+#echo -e -n "${YELLOW}[ INFO ] ${NC}https://app.terraform.io/api/v2/organizations/$ORG_NAME/workspaces/$WORKSPACE_NAME"
 
 {
 WORKSPACE_ID=($(curl \
@@ -72,8 +76,10 @@ curl \
   $UPLOAD_URL
   }&> /dev/null
 
-# 6. Delete Temporary Files
-rm "$UPLOAD_FILE_NAME"
-rm ./create_config_version.json
+echo -e -n "${GREEN}[ OK ] ${NC}Plan successfully started"
+echo
+echo -e -n "${GREEN}[ FINISH ] ${NC}View runs: https://app.terraform.io/app/${ORG_NAME}/workspaces/$WORKSPACE_NAME/runs/ here"
 
-echo -e -n "${GREEN}[ OK ] ${NC} Plan started"
+# 6. Delete Temporary Files
+rm -r ./artifact
+rm ./create_config_version.json
