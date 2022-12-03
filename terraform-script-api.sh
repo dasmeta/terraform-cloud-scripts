@@ -25,7 +25,7 @@ CONTENT_DIRECTORY="$1"
 ORG_NAME="$(cut -d'/' -f1 <<<"$2")"
 WORKSPACE_NAME="$(cut -d'/' -f2 <<<"$2")"
 
-./check-workspace-api.sh $ORG_NAME/$WORKSPACE_NAME
+check-workspace-api $ORG_NAME/$WORKSPACE_NAME
 echo $? > getExit
 
 if [ $? -eq 1 ]; then
@@ -35,7 +35,7 @@ elif [ $(cat getExit) -eq 2 ]; then
 fi
 rm getExit
 
-./create-workspace-api.sh ${ORG_NAME}/${WORKSPACE_NAME}
+create-workspace-api ${ORG_NAME}/${WORKSPACE_NAME}
 
 # 2. Create the File for Upload
 UPLOAD_FILE_NAME="./content-$(date +%s).tar.gz"

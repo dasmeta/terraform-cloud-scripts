@@ -8,9 +8,11 @@ This project lets you configure `Terraform Cloud` with `API`
 ```
 git clone https://github.com/dasmeta/terraform-cloud-scripts.git
 
+for file in *.sh; do  mv -- "$file" "${file%.sh}"; done
+
 cp -r ./terraform-cloud-scripts ~/.tf-scripts
 
-echo "export PATH=$PATH:~/.tf-scrips" >> ~/.zshrc
+echo "export PATH=$PATH:~/.tf-scripts" >> ~/.zshrc
 
 ```
 
@@ -18,7 +20,9 @@ echo "export PATH=$PATH:~/.tf-scrips" >> ~/.zshrc
 ```
 git clone https://github.com/dasmeta/terraform-cloud-scripts.git
 
+for file in *.sh; do  mv -- "$file" "${file%.sh}"; done
+
 cp -r ./terraform-cloud-scripts ~/.tf-scripts
 
-echo "export PATH=$PATH:~/.tf-scrips" >> ~/.bashrc
+echo "export PATH=$PATH:~/.tf-scripts" >> ~/.bashrc
 ```
