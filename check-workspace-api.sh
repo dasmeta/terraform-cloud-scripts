@@ -38,7 +38,7 @@ function checkWorkspace() {
 
   if [ ${http_code_workspace} -eq "404" ]; then
       echo -e "${YELLOW}[ NOT FOUND ]${NC} workspace not found"
-      exit 1;
+      exit 2;
   else
       echo -e "${GREEN}[ OK ]${NC} workspace found"
   fi
