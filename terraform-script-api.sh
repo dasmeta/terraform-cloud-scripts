@@ -9,7 +9,7 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 function askUser() {
-  read -p  $'\e[33m[ ... ]\e[0m Workspace not found, create new one?: ' choice
+  read -p  $'\e[33m[ ... ]\e[0m Workspace not found, create new one? [Yy]: ' choice
   if ! [[ $choice =~ ^[Yy]$ ]]
   then
       exit 1;
@@ -40,9 +40,6 @@ create-workspace-api ${ORG_NAME}/${WORKSPACE_NAME}
 # 2. Create the File for Upload
 UPLOAD_FILE_NAME="./content-$(date +%s).tar.gz"
 tar -zcf "$UPLOAD_FILE_NAME" -C "$CONTENT_DIRECTORY" . &> /dev/null
-
-# 3. Look Up the Workspace ID
-echo -e -n "${YELLOW}[ INFO ] ${NC}https://app.terraform.io/api/v2/organizations/$ORG_NAME/workspaces/$WORKSPACE_NAME"
 
 {
 WORKSPACE_ID=($(curl \
@@ -78,3 +75,5 @@ curl \
 # 6. Delete Temporary Files
 rm "$UPLOAD_FILE_NAME"
 rm ./create_config_version.json
+
+echo -e -n "${GREEN}[ OK ] ${NC} Plan started"
