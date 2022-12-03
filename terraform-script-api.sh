@@ -38,7 +38,6 @@ rm getExit
 ./create-workspace-api.sh ${ORG_NAME}/${WORKSPACE_NAME}
 
 # 2. Create the File for Upload
-
 UPLOAD_FILE_NAME="./content-$(date +%s).tar.gz"
 tar -zcf "$UPLOAD_FILE_NAME" -C "$CONTENT_DIRECTORY" . &> /dev/null
 
@@ -77,6 +76,5 @@ curl \
   }&> /dev/null
 
 # 6. Delete Temporary Files
-
 rm "$UPLOAD_FILE_NAME"
 rm ./create_config_version.json
