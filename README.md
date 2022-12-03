@@ -32,3 +32,17 @@ echo "export PATH=$PATH:~/.tf-scripts" >> ~/.bashrc
 
 su $USER
 ```
+
+### Main Usage
+if workspace doesn't exist, it will ask you to create new one
+```
+terraform-script-api <terraform directory> <org>/<namespace>
+```
+
+### Features supported
+```
+check-workspace-api <org>/<namespace>
+create-workspace-api <org>/<namespace>
+!!!! USE WITH CAUTION !!!!
+delete-workspace-api <org>/<namespace>
+```
