@@ -12,6 +12,12 @@ CONTENT_DIRECTORY="$1"
 ORG_NAME="$(cut -d'/' -f1 <<<"$2")"
 WORKSPACE_NAME="$(cut -d'/' -f2 <<<"$2")"
 
+./check-workspace-api.sh $ORG_NAME/$WORKSPACE_NAME
+
+if [ $? -eq 1 ]; then
+    exit 1
+fi
+
 ./create-workspace-api.sh ${ORG_NAME}/${WORKSPACE_NAME} &> /dev/null
 
 # 2. Create the File for Upload
